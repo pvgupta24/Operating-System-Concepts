@@ -41,13 +41,6 @@ int main(){
         printf("I am child after exit\n");
     }
     else{
-        if(fork()==0){
-            printf("Hey\n");
-        }
-        else{
-            printf("There\n");
-            wait(NULL);
-        }
         printf("I am parent. Waiting for child....\n");
         wait(NULL);
         printf("Child has terminated\n");
