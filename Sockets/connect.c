@@ -45,7 +45,7 @@ int main(int argc , char *argv[])
         printf("Could not create socket\n");
     else{
 
-        printf("Domain Name resolution\n============================\nEnter Host Domain:  ");
+        printf("Domain Name resolution\n======================\nEnter Host Domain:  ");
         struct sockaddr_in server;
         char host[100], ip[100];
         scanf("%s",host);
@@ -63,10 +63,9 @@ int main(int argc , char *argv[])
         int i;
         for(i = 0; addr_list[i] != NULL; i++) 
             printf("%s\n",inet_ntoa(*addr_list[i]));
-    
+
         strcpy(ip, inet_ntoa(*addr_list[0]));
         printf("\nTrying to connect to %s (%s)....\n\n",host,ip);
-        //Google's IP to long format        
         server.sin_addr.s_addr = inet_addr(ip);
         //IPv4
         server.sin_family = AF_INET;
@@ -82,7 +81,7 @@ int main(int argc , char *argv[])
         else
             printf("Connected Successfully\n");
 
-    return 0;
-}
+    }
+    return 0;    
 
 }
