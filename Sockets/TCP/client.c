@@ -28,11 +28,11 @@ int main(int argc, char *argv[])
     port = atoi(argv[2]);
     socketDescriptor = socket(AF_INET, SOCK_STREAM, 0);
     if (socketDescriptor < 0) 
-        error("ERROR opening socket");
+        error("Error opening socket");
 
     server = gethostbyname(argv[1]);
     if (server == NULL) {
-        fprintf(stderr,"ERROR, no such host\n");
+        fprintf(stderr,"Error, no such host\n");
         exit(0);
     }
     bzero((char *) &serv_addr, sizeof(serv_addr));

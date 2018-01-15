@@ -41,7 +41,7 @@ int main(int argc, char *argv[])
     //AF_UNIX if process share common file system & AF_INET for internet domain
     //stream socket in which characters are read in a continuous stream as if from a file or pipe,
     //datagram socket, in which messages are read in chunks
-    // 0: OS schooses appropriate protocol
+    //0: OS schooses appropriate protocol IP
 
     //returns -1 on error
     if (socketDescriptor < 0)
