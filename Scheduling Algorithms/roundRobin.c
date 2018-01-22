@@ -39,20 +39,25 @@ int main(){
     int processLeft = n;
     int currTime=0;
     while(processLeft){
+
         for(i=0;i<n;++i){
+
             if(p[i].runStatus){
                 if(p[i].burst > tq){
                     currTime += tq;                    
                     p[i].burst -= tq;
-                    for(j=0;j<n;++j)
-                        if(i!=j && p[j].runStatus)
-                            p[j].wait += tq;
+                    p[i].wait -= tq;
+                    // for(j=0;j<n;++j)
+                    //     if(i!=j && p[j].runStatus)
+                    //         p[j].wait += tq;
                 }
+                
                 else{
                     currTime += p[i].burst;
-                    for(j=0;j<n;++j)
-                        if(i!=j && p[j].runStatus)
-                            p[j].wait += p[i].burst;
+                    p[i].wait += currTime - p[i].burst;
+                    // for(j=0;j<n;++j)
+                    //     if(i!=j && p[j].runStatus)
+                    //         p[j].wait += p[i].burst;
                         
                     p[i].turn = currTime;                    
                     p[i].runStatus=false;
