@@ -11,28 +11,32 @@
 sem_t chops[N];
 pthread_t philosophers[N];
 void *eat(void *x){
-    int i = (int)x;
+    int person = (int)x;
+    int i = person;
     int j = (i+1) % N;
-    // if(i==N)
-    //     j = N-1;
-    printf("Phlosopher %d is thinking\n", i);
+    //To avoid deadlock invert pickup order for Nth person
+    if(i == N-1){
+        int temp = i;
+        i = j;
+        j = temp;
+    }
+    printf("Phlosopher %d is thinking\n", person);
     sem_wait(chops + i);
-    
-    //sleep(3);//This shows deadlock
-    printf("Phlosopher %d picked up chopstick %d\n", i, i);
+    //sleep(1);//This shows deadlock
+    printf("Phlosopher %d picked up chopstick %d\n", person, i);
     sem_wait(chops + j);
-    printf("Phlosopher %d picked up chopstick %d\n", i, j);
+    printf("Phlosopher %d picked up chopstick %d\n", person, j);
     //CS here
     {
-    printf("Phlosopher %d is eating\n", i);
-    sleep(1);
+    printf("Phlosopher %d is eating\n", person);
+    sleep(0.5);
     }
-    printf("Phlosopher %d dropped chopstick %d\n", i, i);
+    printf("Phlosopher %d dropped chopstick %d\n", person, i);
     sem_post(chops + i);
-    printf("Phlosopher %d dropped chopstick %d\n", i, j);    
+    printf("Phlosopher %d dropped chopstick %d\n", person, j);    
     sem_post(chops + j);
 
-    printf("Philosopher %d completed eating!!\n", i);
+    printf("Philosopher %d completed eating!!\n", person);
 }
 int main(){
     printf("Dining Philosophers Problem %d people\n", N);
