@@ -15,7 +15,7 @@ typedef struct Process{
 }Process;
 
 int main(){
-    printf("High Priority Algorithm\n===============================\n");
+    printf("High Priority Algorithm-Preemptive\n===============================\n");
     printf("Enter n (No. of processes)\n");
     int n;
     scanf("%d", &n);
@@ -43,8 +43,8 @@ int main(){
         minPriority = INT_MAX;
         minPid = -1;
         for(i=0;i<n;++i)
-            if(p[i].runStatus && p[i].arrival <= currTime && p[i].burst < minPriority){
-                minPriority = p[i].burst;
+            if(p[i].runStatus && p[i].arrival <= currTime && p[i].priority < minPriority){
+                minPriority = p[i].priority;
                 minPid = p[i].pid;
             }
         
@@ -70,7 +70,7 @@ int main(){
     printf("====================================================================================================================================\n");
     for(i=0;i<n;++i){
         printf("Process %d\t\t%d\t\t%d\t\t\t%d\t\t\t%d\t\t\t%d\n", p[i].pid, p[i].priority,
-         p[i].arrival, p[i].burst,p[i].wait,p[i].turn);
+         p[i].arrival, p[i].initialBurst,p[i].wait,p[i].turn);
     }
     printf("====================================================================================================================================\n");    
     printf("\nAverage Wait Time = %f\n",avgWait);
@@ -80,3 +80,27 @@ int main(){
 
     return 0;
 }
+/*
+High Priority Algorithm-Preemptive
+===============================
+Enter n (No. of processes)
+4
+Enter burst time, arrival time, priority for processes
+Process 0 :8 0 2
+Process 1 :4 1 1
+Process 2 :9 2 3
+Process 3 :5 3 4
+
+====================================================================================================================================
+Process No.             Priority        Arrival Time            Burst Time              Wait Time               Turnaround Time
+====================================================================================================================================
+Process 0               2               0                       8                       4                       12
+Process 1               1               1                       4                       0                       4
+Process 2               3               2                       9                       10                      19
+Process 3               4               3                       5                       18                      23
+====================================================================================================================================
+
+Average Wait Time = 8.000000
+Average Turnaround Time = 14.500000
+=================================================================================================================================
+*/
