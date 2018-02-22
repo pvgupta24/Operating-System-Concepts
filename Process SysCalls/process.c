@@ -5,7 +5,7 @@
 # define LEN 100
 
 int sigCount = 2;
-// Handler for SIGINT, caused by Ctrl-C at keyboard\
+// Handler for SIGINT, caused by Ctrl-C at keyboard
 
 pid_t child_pid = -1;
 
@@ -29,8 +29,8 @@ int main(){
     printf("Parent process is ==> %d\n",getppid()); 
     printf("Real user ID of process ==> %d\n",getuid()); 
     printf("Effective user ID of process ==> %d\n",geteuid());  
-    printf("Real group ID of process ==> %d\n",getuid()); 
-    printf("Effective group ID of process ==> %d\n\n",geteuid()); 
+    printf("Real group ID of process ==> %d\n",getgid()); 
+    printf("Effective group ID of process ==> %d\n\n",getegid()); 
 
 
     if (fork()== 0){
