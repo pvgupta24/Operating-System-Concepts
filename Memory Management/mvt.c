@@ -6,7 +6,7 @@
 #define N 1000
 
 
-int mm_size, slot_count = 1, pid = -1, pos, free_mem, pid_del;
+int mm_size, slot_count = 1, pid = -1, pos=0, free_mem, pid_del;
 int i, j, k;
 int parts_allocated=0;
 
@@ -37,12 +37,15 @@ void mem_table(){
     printf("Size\t\tContents\t\tRange\n");
     loop(i,slot_count){
         printf("%d\t\t",slots[i].size);
-        (slots[i].empty) ? printf("-\t\t%d-%d\n",slots[i].start,slots[i].end) : printf("P%d\t\t%d-%d\n",slots[i].pid,slots[i].start,slots[i].end);
+        (slots[i].pid==-1) ? printf("-\t\t\t%d-%d\n",slots[i].start,slots[i].end) : 
+        printf("P%d\t\t\t%d-%d\n",slots[i].pid,slots[i].start,slots[i].end);
+    
     }
+    println();
 }
 int find_slot(){
     for(i=0; i<slot_count; i++)
-		if(slots[i].pid == -1 && slots[i].size >= pro[pid].req)
+		if(slots[i].pid==-1 && slots[i].size >= pro[pid].req)
 			return i;
 
 	return -1;
@@ -71,7 +74,7 @@ int dealloc_merge(int slot_del)
     slots[slot_del].empty=true;
     slots[slot_del].pid=-1;
     //If right slot free merge
-	if(slot_del!=slot_count-1 && slots[slot_del+1].empty)
+	if(slot_del!=slot_count-1 && slots[slot_del+1].pid==-1)
 	{
 		slots[slot_del].size += slots[slot_del+1].size;
 		for(i=slot_del+1; i<slot_count-1; i++)
@@ -79,13 +82,8 @@ int dealloc_merge(int slot_del)
 		slot_count--;
 	}
     //If left slot free merge
-	if(slot_del>0 && slots[slot_del-1].empty)
+	if(slot_del>0 && slots[slot_del-1].pid==-1)
 	{
-		slots[slot_del-1].size += slots[slot_del].size;
-		for(i=slot_del; i<slot_count-1; i++)
-			slots[i] = slots[i+1];
-		slot_count--;
-	}
 }
 int main(){
     system("clear");
@@ -111,6 +109,7 @@ int main(){
         printf("Mem for P%d : ", pid);
         inp(pro[pid].req);
         pos = find_slot();
+        //printf("Slot %d found for P%d\n",pos,pid);
         if(pos == -1){
             if(free_mem < pro[pid].req)
                 printf("Insufficient Memory\n");
