@@ -73,6 +73,7 @@ int dealloc_merge(int slot_del)
 {
     slots[slot_del].empty=true;
     slots[slot_del].pid=-1;
+    free_mem += slots[slot_del].size;
     //If right slot free merge
 	if(slot_del!=slot_count-1 && slots[slot_del+1].pid==-1)
 	{
@@ -81,9 +82,14 @@ int dealloc_merge(int slot_del)
 			slots[i] = slots[i+1];
 		slot_count--;
 	}
-    //If left slot free merge
+   //If left slot free merge
 	if(slot_del>0 && slots[slot_del-1].pid==-1)
 	{
+		slots[slot_del-1].size += slots[slot_del].size;
+		for(i=slot_del; i<slot_count-1; i++)
+			slots[i] = slots[i+1];
+		slot_count--;
+	}
 }
 int main(){
     system("clear");
