@@ -8,7 +8,7 @@ Programs pertaining to various OS concepts in C
 - [x] Synchronisation Problems (Semaphores and PThreads)
 - [x] Deadlock Avoidance (Banker's Algorithm)
 - [x] Memory Mangement (MVT & MFT)
-- [ ] Contiguous Memory Allocation (Worst, Best, First)
+- [x] Contiguous Memory Allocation (Worst, Best, First)
 - [ ] Page Replacement Algorithms
 - [ ] Paging Technique of Memory Management
 - [ ] Disk scheduling algorithms
