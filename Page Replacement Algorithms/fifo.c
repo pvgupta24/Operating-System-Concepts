@@ -47,7 +47,7 @@ int main(){
     initialize(table);
 
     while(true){
-        printf("Enter page request (-1 to exit) :");
+        printf("Enter page request (-1 to exit) : ");
         inp(req);
         if(req < 0)
             break;
